@@ -1,0 +1,886 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap");
+
+body,
+html {
+  font-family: "Inconsolata", monospace;
+  font-size: 18px;
+  line-height: 1.8;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  position: relative;
+}
+
+a {
+  text-decoration: none;
+  font-style: normal;
+  color: inherit;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover {
+  transform: scale(1.05); /* Легке збільшення кнопки */
+  color: var(--color-prime);
+}
+h2 {
+  font-size: 40px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  padding: 0;
+  margin: 0;
+}
+img {
+  width: 100%; /* Встановлює ширину зображення на 100% */
+  height: auto; /* Пропорційно змінює висоту */
+  background-color: transparent; /* Задає прозорий фон, якщо зображення вбудоване */
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%; /* Робить зображення круглим */
+  object-fit: cover; /* Запобігає спотворенню, обрізає зайве */
+  object-position: center; /* Центрує зображення */
+}
+
+.menu nav {
+  display: flex;
+  gap: 20px;
+}
+.button img {
+  width: 20px;
+}
+.container {
+  margin: 0 auto;
+  max-width: 1400px;
+  width: 100%;
+  padding: 20px;
+}
+
+#cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1a1a1a; /* Темніший фон для кращого контрасту */
+  color: #f0f0f0; /* Світлий текст */
+  padding: 20px;
+  text-align: center;
+  z-index: 9999;
+  display: none;
+  font-family: 'Arial', sans-serif; /* Використовуємо загальний шрифт сайту */
+  border-top: 3px solid #4caf50; /* Лінія зверху для стилю */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Тінь для об'ємного вигляду */
+}
+
+#cookie-banner p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto; /* Центрування тексту */
+}
+
+#cookie-banner button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px; /* Округлені кути для кнопок */
+  transition: background-color 0.3s ease;
+  font-family: 'Arial', sans-serif; /* Використовуємо той самий шрифт */
+}
+
+#cookie-banner button.decline {
+  background-color: #f44336;
+}
+
+#cookie-banner button:hover {
+  opacity: 0.8;
+  background-color: #45a049; /* Трохи темніший зелений при наведенні */
+}
+
+#cookie-banner a {
+  color: #4caf50; /* Зелені посилання для контрасту */
+  text-decoration: none;
+}
+
+#cookie-banner a:hover {
+  text-decoration: underline; /* Підкреслюємо посилання при наведенні */
+}
+
+
+/* scroll */
+/* Стилізація скролбару на всьому сайті */
+::-webkit-scrollbar {
+  width: 12px; /* Ширина вертикального скролбару */
+  height: 12px; /* Висота горизонтального скролбару */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #2d2d2d; /* Колір самого скролбару */
+  border-radius: 6px; /* Заокруглені кути */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #686868; /* Темніше індиго при наведенні */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Колір фону скролбару */
+  border-radius: 6px; /* Заокруглені кути */
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: #f1f1f1; /* Колір внутрішньої частини треку */
+}
+
+@media (max-width: 768px) {
+  .container {
+    min-width: 300px;
+    width: 90%;
+  }
+}
+
+/* Загальні стилі для бургер-меню */
+.burger-menu {
+  display: none; /* Ховати бургер-меню на десктопах */
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 999; /* Вищий z-index, щоб бургер-меню було зверху */
+}
+
+.burger-line {
+  width: 30px;
+  height: 4px;
+  background-color: #333;
+  border-radius: 5px;
+}
+
+/* Стилі для меню на мобільних пристроях */
+@media (max-width: 768px) {
+  #nav-menu {
+    /* Тепер звертаємось до id */
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    top: 80px;
+    right: 10px;
+    background-color: #fff;
+    color: #333;
+    width: 200px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 998; /* Зробити menu менше, щоб воно не перекривало бургер */
+  }
+
+  /* Стилі для мобільного меню при відкритті */
+  #nav-menu.active {
+    display: flex; /* Переключаємо на відображення */
+    flex-direction: column; /* Розташовуємо елементи вертикально */
+  }
+
+  /* Показати бургер-меню на мобільних пристроях */
+  .burger-menu {
+    display: flex;
+  }
+}
+
+.container-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .policy-menu nav {
+    display: flex;
+    gap: 20px;
+  }
+  .container-footer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .container-footer p {
+    font-size: 14px;
+  }
+
+  .policy-menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer .header {
+    justify-content: center;
+  }
+}
+.header-color {
+  background-color: #333;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 100;
+  color: #f1f1f1;
+}
+.logo a {
+  display: flex;
+  gap: 20px;
+  font-size: 26px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #4caf50;
+  align-items: center;
+}
+/* hero */
+.hero h1 {
+  font-size: 48px;
+}
+.hero p {
+  font-size: 22px;
+  line-height: 1.3;
+}
+.hero-text ul {
+  text-align: left;
+  font-size: 18px;
+  list-style-type: none;
+  padding-left: 0;
+  animation: slideInFromLeft 1.4s ease-out;
+}
+
+.hero-text li {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+.hero-text ul li {
+  border: solid 1px #f1f1f1;
+  padding: 10px;
+  border-radius: 10px;
+}
+.hero-text li i {
+  margin-right: 10px;
+  font-size: 20px; /* İkon boyutunu buradan ayarlayın */
+}
+
+.hero {
+  position: relative;
+  background-color: #2d2d2d; /* Koyu arka plan rengi */
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-button .button i {
+  margin-right: 10px;
+  font-size: 20px; /* İkonun boyutunu ayarlayın */
+}
+
+.hero .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0;
+  gap: 30px;
+  animation: fadeInUp 1.5s ease-out;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 50%;
+  padding-right: 20px;
+}
+
+.hero-text h1 {
+  font-size: 50px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  animation: slideInFromLeft 1s ease-out;
+}
+
+.hero-text p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  line-height: 1.5;
+  animation: slideInFromLeft 1.2s ease-out;
+}
+
+.hero-text ul {
+  text-align: left;
+  font-size: 18px;
+  list-style-type: none;
+  padding-left: 0;
+  animation: slideInFromLeft 1.4s ease-out;
+}
+
+.hero-text li {
+  margin: 10px 0;
+}
+
+.hero-img {
+  flex: 1;
+  max-width: 45%;
+  animation: slideInFromRight 1.5s ease-out;
+}
+
+.hero-img img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hero-button {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.hero-button .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 25px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.hero-button .button img {
+  width: 24px;
+  margin-right: 10px;
+}
+
+.hero-button .button:hover {
+  transform: scale(1.05);
+}
+
+.hero-button .button:active {
+  transform: scale(1);
+}
+
+.hero-button .button:nth-child(2) {
+  background-color: #333;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-text {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .hero-img {
+    max-width: 80%;
+  }
+
+  .hero-button {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.features {
+  background-color: #333; /* Koyu arka plan rengi */
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  animation: fadeInUp 1.5s ease-out;
+}
+
+.features ul {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 18px;
+  animation: slideInFromLeft 1.4s ease-out;
+}
+
+.features li {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-size: 18px;
+}
+
+.features li i {
+  font-size: 24px; /* İkon boyutunu ayarladık */
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.features-container ul {
+  display: flex;
+  gap: 10px;
+}
+.features-container ul li {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  flex: 1;
+  background-color: #4caf50;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* how to play */
+.how-to-play {
+  background-color: #f4f4f4;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.how-to-play h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #333;
+  animation: fadeInUp 1.5s ease-out;
+}
+
+.how-to-play-container ul {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 18px;
+  animation: slideInFromLeft 1.5s ease-out;
+}
+
+.how-to-play-container li {
+  display: flex;
+  flex-direction: column;
+  background-color: #2d2d2d;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #f1f1f1;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.how-to-play-container li i {
+  font-size: 28px;
+  color: #4caf50;
+}
+
+.how-to-play-container li strong {
+  font-weight: 600;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+
+
+  .how-to-play-container li {
+    flex-direction: column;
+    text-align: left;
+    gap: 10px;
+  }
+
+  .how-to-play-container li i {
+    font-size: 24px;
+  }
+}
+
+.story {
+  position: relative;
+  background-color: #2d2d2d; /* Koyu arka plan rengi */
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.story .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.story-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  animation: fadeInUp 1.5s ease-out;
+}
+
+.story-text {
+  flex: 1;
+  max-width: 50%;
+  padding-right: 20px;
+  animation: slideInFromLeft 1s ease-out;
+}
+
+.story-text h2 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.story-text p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+.story-img {
+  flex: 1;
+  max-width: 45%;
+  animation: slideInFromRight 1.5s ease-out;
+}
+
+.story-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .story-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .story-text {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .story-img {
+    max-width: 80%;
+  }
+}
+
+.tournaments {
+  position: relative;
+  background-color: #f4f4f4; /* Açık renkli arka plan */
+  color: #333; /* Koyu metin rengi */
+  padding: 80px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.tournaments .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tournaments-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tournaments-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tournaments-container li {
+  font-size: 18px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.tournaments-container li:hover {
+  background-color: #4caf50; /* Hover rengini yeşil yap */
+  transform: scale(1.05);
+}
+
+.tournaments-container i {
+  font-size: 24px;
+  color: #4caf50; /* İkon renklerini yeşil yap */
+}
+
+.tournaments-container li:hover i {
+  color: white; /* Hover sırasında ikon rengini beyaz yap */
+}
+
+.tournaments h2 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+
+
+  .tournaments-container li {
+    font-size: 18px;
+    margin: 15px 0;
+  }
+
+  .tournaments-container i {
+    font-size: 20px;
+  }
+}
+
+.join {
+  background-color: #2d2d2d; /* Koyu arka plan rengi */
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.join .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.join h2 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.join p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.join-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.join-buttons .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 25px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.join-buttons .button img {
+  width: 24px;
+  margin-right: 10px;
+}
+
+.join-buttons .button:hover {
+  transform: scale(1.05);
+}
+
+.join-buttons .button:active {
+  transform: scale(1);
+}
+
+.join-buttons .button:nth-child(2) {
+  background-color: #333;
+}
+
+@media (max-width: 768px) {
+  .join p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .join-buttons {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.footer {
+  background-color: #333;
+  color: #f1f1f1;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 36px;
+  }
+  .hero p {
+    font-size: 18px;
+  }
+  .hero-text ul {
+    font-size: 16px;
+  }
+  .hero-text {
+    padding: 0;
+  }
+
+  .features-container ul {
+    flex-direction: column;
+  }
+  .hero {
+    padding: 50px 20px;
+  }
+  .features h2,
+  .how-to-play h2,
+  .story-text h2,
+  .tournaments h2,
+  .join h2 {
+    font-size: 32px;
+  }
+}
